@@ -4,17 +4,165 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Gra_w_kosci_tutorial"
+        xmlns:converters="clr-namespace:Gra_w_kosci_tutorial.Converters"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <DockPanel>
-        <Button Content="Roll" x:Name="rollbtn" DockPanel.Dock="Bottom" Click="rollbtn_Click"/>
-        <Button Content="Clear" x:Name="clearbtn" DockPanel.Dock="Bottom" Click="clearbtn_Click"/>
-        <ItemsControl ItemsSource="{Binding results}">
-            <ItemsControl.ItemsPanel>
+        Title="MainWindow" Height="650" Width="800">
+    <Window.Resources>
+        <converters:IntToStringConverter x:Key="IntToStringConverter"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="100"/>
+            
+        </Grid.RowDefinitions>
+
+        <Label x:Name="totalpoints" Grid.Row="1" Grid.Column="2" />
+        <Button Content="Roll" x:Name="rollbtn"  Click="rollbtn_Click" Grid.Row="1" Grid.Column="0"/>
+        <Button Content="Start" x:Name="clearbtn"  Click="startbtn_Click" Grid.Row="0" Grid.Column="2"/>
+        <Button Content="Zatwierdz" x:Name="donebtn"  Click="donebtn_Click" Grid.Row="1" Grid.Column="1"/>
+        
+        <ItemsControl ItemsSource="{Binding results}" Grid.Column="0" >
+            <!--<ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <UniformGrid/>
                 </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
+            </ItemsControl.ItemsPanel>-->
+       
+
+        <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <Button Click="Button_Dice_Click">
+                <Image Height="100">
+                    <Image.Style>
+                        <Style TargetType="Image">
+                                <Setter Property="Source" Value="Images/kostkapusta.png" />
+                            <Style.Triggers>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding Value}" Value="1"/>
+                                                <Condition Binding="{Binding IsSelected}" Value="false"/>
+                                            </MultiDataTrigger.Conditions>
+                                               <Setter Property="Source" Value="Images/kostka1.png" /> 
+                                        </MultiDataTrigger>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding Value}" Value="2"/>
+                                                <Condition Binding="{Binding IsSelected}" Value="false"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Source" Value="Images/kostka2.png" />
+                                        </MultiDataTrigger>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding Value}" Value="3"/>
+                                                <Condition Binding="{Binding IsSelected}" Value="false"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Source" Value="Images/kostka3.png" />
+                                        </MultiDataTrigger>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding Value}" Value="4"/>
+                                                <Condition Binding="{Binding IsSelected}" Value="false"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Source" Value="Images/kostka4.png" />
+                                        </MultiDataTrigger>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding Value}" Value="5"/>
+                                                <Condition Binding="{Binding IsSelected}" Value="false"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Source" Value="Images/kostka5.png" />
+                                        </MultiDataTrigger>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding Value}" Value="6"/>
+                                                <Condition Binding="{Binding IsSelected}" Value="false"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Source" Value="Images/kostka6.png" />
+                                        </MultiDataTrigger>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding Value}" Value="1"/>
+                                                <Condition Binding="{Binding IsSelected}" Value="true"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Source" Value="Images/kostka1.png" />
+                                            <Setter Property="Opacity" Value="0.5" />                                            
+                                        </MultiDataTrigger>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding Value}" Value="2"/>
+                                                <Condition Binding="{Binding IsSelected}" Value="true"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Source" Value="Images/kostka2.png" />
+                                            <Setter Property="Opacity" Value="0.5" />
+                                        </MultiDataTrigger>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding Value}" Value="3"/>
+                                                <Condition Binding="{Binding IsSelected}" Value="true"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Source" Value="Images/kostka3.png" />
+                                            <Setter Property="Opacity" Value="0.5" />
+                                        </MultiDataTrigger>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding Value}" Value="4"/>
+                                                <Condition Binding="{Binding IsSelected}" Value="true"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Source" Value="Images/kostka4.png" />
+                                            <Setter Property="Opacity" Value="0.5" />
+                                        </MultiDataTrigger>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding Value}" Value="5"/>
+                                                <Condition Binding="{Binding IsSelected}" Value="true"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Source" Value="Images/kostka5.png" />
+                                            <Setter Property="Opacity" Value="0.5" />
+                                        </MultiDataTrigger>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding Value}" Value="6"/>
+                                                <Condition Binding="{Binding IsSelected}" Value="true"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Source" Value="Images/kostka6.png" />
+                                            <Setter Property="Opacity" Value="0.5" />
+                                        </MultiDataTrigger>
+                                        <!--<DataTrigger Binding="{Binding Value}" Value="1">
+                                    <Setter Property="Source" Value="Images/kostka1.png" />
+                                </DataTrigger>
+                                    <DataTrigger Binding="{Binding  Value}" Value="2">
+                                        <Setter Property="Source" Value="Images/kostka2.png" />
+                                </DataTrigger>
+                                    <DataTrigger Binding="{Binding  Value}" Value="3">
+                                        <Setter Property="Source" Value="Images/kostka3.png" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Value}" Value="4">
+                                        <Setter Property="Source" Value="Images/kostka4.png" />
+                                </DataTrigger>
+                                    <DataTrigger Binding="{Binding  Value}" Value="5">
+                                        <Setter Property="Source" Value="Images/kostka5.png" />
+                                </DataTrigger>
+                                    <DataTrigger Binding="{Binding  Value}" Value="6">
+                                        <Setter Property="Source" Value="Images/kostka6.png" />
+                                </DataTrigger>-->
+
+
+                            </Style.Triggers>
+
+
+                        </Style>
+                    </Image.Style>
+                </Image>
+                    </Button>
+                </DataTemplate>
+        </ItemsControl.ItemTemplate>
         </ItemsControl>
-    </DockPanel>
+        <DataGrid ItemsSource="{Binding scores}" Grid.Column="1"  />
+    </Grid>
 </Window>
